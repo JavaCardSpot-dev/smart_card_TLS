@@ -322,13 +322,13 @@ public class methodtls implements auth {
 				HH [(short)(offset+4)]=(byte)0;
 				Util.setShort(HH,(short)(offset+5),(short)(len+3));
 				HH [(short)(offset+7)]=(byte)0;
-				Util.setShort(HH,(short)(offset+8),(short)len);
+				Util.setShort(HH,(short)(offset+8),len);
 				return(short)10;
 	  
 			case (byte)15: // certificate_verify
 			case (byte)16: // client_key_exchange
 				Util.setShort(HH,(short)(offset+2),(short)(len+2));
-				Util.setShort(HH,(short)(offset+4),(short)len);
+				Util.setShort(HH,(short)(offset+4),len);
 				return(short)6;
 	  
 			default:
@@ -387,9 +387,9 @@ public class methodtls implements auth {
 				return;
 
 			case FCT_RANDOM:
-				len = Util.makeShort((byte)0x00,(byte) buffer[4]);
-				rnd.generateData(buffer,(short)0,(short)len);
-				apdu.setOutgoingAndSend((short)0,(short)len); 
+				len = Util.makeShort((byte)0x00, buffer[4]);
+				rnd.generateData(buffer,(short)0,len);
+				apdu.setOutgoingAndSend((short)0,len); 
 				return;
 		  
 			case FCT_CERT_INIT:
@@ -872,7 +872,7 @@ public class methodtls implements auth {
 					// Dual hash calculation for the Server Finished Message
 					// HASH [heap_offset+10,heap_offset+16[
 					//======================================================
-					doFinal(md5,heap,(short)(heap_offset+10),(short)(heap_ptr-heap_offset-10+16),hash,(short)(hash_off));
+					doFinal(md5,heap,(short)(heap_offset+10),(short)(heap_ptr-heap_offset-10+16),hash,(hash_off));
 					doFinal(sha,heap,(short)(heap_offset+10),(short)(heap_ptr-heap_offset-10+16),hash,(short)(16+hash_off));
 							
 					EAP_TLS_State = (byte)57 ; 
@@ -922,9 +922,9 @@ public class methodtls implements auth {
 					// Encryption Message+HMAC
 					//========================
 					Util.arrayFillNonAtomic(heap, (short) (heap_ptr + (short)(16+HASH_SIZE)), padding_length, (byte) (padding_length - 1));
-					cipherAES.init(clientAESKey, Cipher.MODE_ENCRYPT, key_block, (short) (IV_offset), block_length);
+					cipherAES.init(clientAESKey, Cipher.MODE_ENCRYPT, key_block, (IV_offset), block_length);
 					cipherAES.doFinal(heap, heap_ptr, (short)(16+HASH_SIZE+padding_length), heap, heap_ptr);
-					Util.arrayCopyNonAtomic(heap, (short)(heap_ptr+16+HASH_SIZE+padding_length-block_length), key_block, (short)IV_offset, block_length);
+					Util.arrayCopyNonAtomic(heap, (short)(heap_ptr+16+HASH_SIZE+padding_length-block_length), key_block, IV_offset, block_length);
 					
 					//EditByte(heap,heap_ptr,(short)32);
 					
@@ -1078,7 +1078,7 @@ public class methodtls implements auth {
 					// HASH [heap_offset+10,len3[
 					//======================================================
 					
-					doFinal(md5,heap,(short)(heap_offset+10),(short)(len3-heap_offset-10),hash,(short)(hash_off));
+					doFinal(md5,heap,(short)(heap_offset+10),(short)(len3-heap_offset-10),hash,(hash_off));
 					doFinal(sha,heap,(short)(heap_offset+10),(short)(len3-heap_offset-10),hash,(short)(16+hash_off));
 									
 					// 14 03 01 00 01 01   // Change Cipher Spec
@@ -1173,16 +1173,16 @@ public class methodtls implements auth {
 
 						cipherAES.init(serverAESKey, Cipher.MODE_DECRYPT, key_block, (short) (IV_offset+block_length), block_length);
 						Util.arrayCopyNonAtomic(heap, (short)(heap_ptr+len-block_length), key_block, (short)(IV_offset+block_length), block_length);
-						cipherAES.doFinal(heap, heap_ptr, (short)(len), heap, heap_ptr);
+						cipherAES.doFinal(heap, heap_ptr, (len), heap, heap_ptr);
 						padding_length = (short) (heap[(short)(heap_ptr+len - 1)] + 1);
 						len=(short)(len - padding_length-HASH_SIZE);
 						
-						if (!RecordLayerHMAC((byte)23,(short)(len),numct_server,true))
+						if (!RecordLayerHMAC((byte)23,(len),numct_server,true))
 						{	EAP_TLS_State = S_END;
 							return(-1);
 						} 
 						
-						heap_ptr = (short)((short)heap_ptr+(short)len);
+						heap_ptr = (short)(heap_ptr+len);
 						return(EAP_TLS_Output(in,true,true));	
 					}
 					
@@ -1198,7 +1198,7 @@ public class methodtls implements auth {
 						numct_client=(short)(numct_client+1);
 					
 						frag_ptr= (short)(old_ptr-5);
-						heap_ptr= (short)(old_ptr); 
+						heap_ptr= (old_ptr); 
 				
 						if (numct_client==1) 
 						{				
@@ -1210,13 +1210,13 @@ public class methodtls implements auth {
 						} 
 						
 						padding_length = (short) (block_length - ((short)(len+HASH_SIZE) % block_length));
-						MakeRecordHeader(heap,(short)((short)heap_ptr-(short)5),(byte)23,(short)(len+HASH_SIZE+padding_length));
-						RecordLayerHMAC((byte)23,(short)len,numct_client,false);
+						MakeRecordHeader(heap,(short)(heap_ptr-(short)5),(byte)23,(short)(len+HASH_SIZE+padding_length));
+						RecordLayerHMAC((byte)23,len,numct_client,false);
 
 						Util.arrayFillNonAtomic(heap, (short) (heap_ptr+len+HASH_SIZE), padding_length, (byte) (padding_length - 1));
-						cipherAES.init(clientAESKey, Cipher.MODE_ENCRYPT, key_block, (short) (IV_offset), block_length);
+						cipherAES.init(clientAESKey, Cipher.MODE_ENCRYPT, key_block, (IV_offset), block_length);
 						cipherAES.doFinal(heap, heap_ptr, (short)(len+HASH_SIZE+padding_length), heap, heap_ptr);
-						Util.arrayCopyNonAtomic(heap, (short)(heap_ptr+len+HASH_SIZE+padding_length-block_length), key_block, (short)IV_offset, block_length);
+						Util.arrayCopyNonAtomic(heap, (short)(heap_ptr+len+HASH_SIZE+padding_length-block_length), key_block, IV_offset, block_length);
 						heap_ptr = (short)(heap_ptr+len+HASH_SIZE+padding_length);
 
 						return(EAP_TLS_Output(in,true,true));			
@@ -1230,12 +1230,12 @@ public class methodtls implements auth {
 	private boolean fill=false;
 	public boolean fill_form(byte [] buffer, short length, short offset) // provisional static filling for login and password of fixed lengths
 	{	short i,k;
-		for(i=(short)(offset+length-19); i>(short)offset; i--)
+		for(i=(short)(offset+length-19); i>offset; i--)
 		{
-			if(Util.arrayCompare(buffer,(short)(i),form_pass,(short)(0),(short)(form_pass.length))==(short)0)
+			if(Util.arrayCompare(buffer,(i),form_pass,(short)(0),(short)(form_pass.length))==(short)0)
 				Util.arrayCopyNonAtomic(password,(short)(0),buffer,(short)(i+9),(short)password.length);
 		
-			if(Util.arrayCompare(buffer,(short)(i),form_user,(short)(0),(short)(form_user.length))==(short)0)
+			if(Util.arrayCompare(buffer,(i),form_user,(short)(0),(short)(form_user.length))==(short)0)
 			{	Util.arrayCopyNonAtomic(login,(short)(0),buffer,(short)(i+5),(short)login.length);
 				return true;
 			}
@@ -1464,7 +1464,7 @@ public class methodtls implements auth {
 	 
 		hmac(secret,(short)(secret_off+(secret_len/2)),(short)(secret_len/2),
 			P_Hash,(short)(P_Hash_off+20),(short)(label_len+seed_len),sha,
-			P_Hash,(short)P_Hash_off);
+			P_Hash,P_Hash_off);
 		
 		P_Hash_len = (short)(20+label_len+seed_len);
 		x_sha1 = (byte)((byte)20*x_sha1);
@@ -1472,12 +1472,12 @@ public class methodtls implements auth {
 		for(i=0;i<(short)x_sha1;i=(short)(i+20))
 		{
 			hmac(secret,(short)(secret_off+(secret_len/2)),(short)(secret_len/2),
-				P_Hash,(short)P_Hash_off,P_Hash_len,sha,
-			P,(short)P_off);
+				P_Hash,P_Hash_off,P_Hash_len,sha,
+			P,P_off);
 		  
 			hmac(secret,(short)(secret_off+(secret_len/2)),(short)(secret_len/2),
-				P_Hash,(short)P_Hash_off,(short)20,sha,
-				P_Hash,(short)P_Hash_off);
+				P_Hash,P_Hash_off,(short)20,sha,
+				P_Hash,P_Hash_off);
 		 
 			for(k=0;k<20;k=(short)(k+1)) 
 				Prf[(short)(Prf_off+k+i)] ^=  P[(short)(P_off+k)];
@@ -1518,7 +1518,7 @@ public class methodtls implements auth {
 		short i,DIGESTSIZE ;
 		DIGESTSIZE=(short)md.getLength();
 		  		   
-		if (lk > (short)BLOCKSIZE) 
+		if (lk > BLOCKSIZE) 
 		{  	md.reset();
             md.doFinal(k,k_off,lk,k,k_off);
             lk = DIGESTSIZE ;
@@ -1794,7 +1794,7 @@ public class methodtls implements auth {
 				len=md5.doFinal(bin,obj[0],obj[1],con,(short)(con_off+16));
 			}  
 	   		// EditByte(con,(short)(con_off+len),(short)len);
-	   		len = Util.arrayCompare(con,con_off,con,(short)(con_off+len),(short)len) ;
+	   		len = Util.arrayCompare(con,con_off,con,(short)(con_off+len),len) ;
 	   		if (len != (short)0) return(false);
 		}
 		return (true);
