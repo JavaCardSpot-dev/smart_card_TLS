@@ -1,7 +1,10 @@
---------------
-Smart card TLS   [![Build Status](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS.svg?branch=master)](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS)
---------------
+:information_source: **IMPORTANT: This repository is used for class [PV204 Security Technologies at Masaryk University](https://is.muni.cz/auth/predmety/predmet?lang=en;setlang=en;pvysl=3141746). All meaningful improvements will be attempted to be pushed to upstream repository in June 2018.**
 
+SECOND SEMESTER [![Build Status](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS.svg?branch=master)](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS)
+
+--------------
+Smart card TLS   
+--------------
 Client implementation of TLS in Java Card based on the EAP-TLS code for smart cards from Pascal Urien: http://www.infres.enst.fr/~urien/openeapsmartcard/.
 The first commit corresponds to the initial code of Pascal Urien, not updated since 2005, the second commit is my modified code from 2011, with the following implementations:
 
