@@ -1,5 +1,5 @@
 --------------
-smart card TLS
+Smart card TLS   [![Build Status](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS.svg?branch=master)](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS)
 --------------
 
 Client implementation of TLS in Java Card based on the EAP-TLS code for smart cards from Pascal Urien: http://www.infres.enst.fr/~urien/openeapsmartcard/.
