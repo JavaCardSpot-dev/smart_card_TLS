@@ -147,7 +147,7 @@ public class eapengine extends Applet
 	private  static short  My_PMK_Key_Offset    = (short)0;
 	private  static short  My_PMK_Key_Length    = (short)64;	
 	//private static byte   My_Master_Secret[]    = new byte[80];
-	//private  static byte  Cert_Serveur[]        = new byte[(short)700];
+	//private  static byte  Cert_Serveur[]        = n ew byte[(short)700];
  			
 	private  static short My_Alias_Length =(short)0;
 	private  static short My_Alias_Offset =(short)0;
@@ -278,7 +278,7 @@ public class eapengine extends Applet
 		for(i=x;i<(short)8;i=(short)(i+1))
 			buffer[(short)(5+i)]=(byte)0xFF;
 	    if ( pin.check(buffer, (short)5,(byte)8) == false )
-			ISOException.throwIt(((short)SW_VERIFICATION_FAILED | (short)pin.getTriesRemaining()));
+			ISOException.throwIt((short)(SW_VERIFICATION_FAILED | pin.getTriesRemaining()));
 	}
   
 	/**
@@ -771,7 +771,7 @@ public class eapengine extends Applet
 			case INS_FCT:
 	   
 				if ( ! UserPin.isValidated() && !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
 			  
 				if ( ((short)(Util.getShort(NVR,(short)(NVR_Size-2)) & (short)0x1000) == (short)0x1000))
 					ISOException.throwIt(ISO7816.SW_COMMAND_NOT_ALLOWED);	
@@ -829,7 +829,7 @@ public class eapengine extends Applet
 			case INS_GET_CURRENT_IDENTITY:	
 		
 				if ( !UserPin.isValidated() && !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
 							   
 				Util.arrayCopyNonAtomic(NVR,My_ID_Offset,buffer,(short)0,My_ID_Length);
 				apdu.setOutgoingAndSend((short)0,My_ID_Length);			   
@@ -840,7 +840,7 @@ public class eapengine extends Applet
 			case INS_SET_IDENTITY :	
 					   
 				if ( ! UserPin.isValidated() && !OperatorPin.isValidated())
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
 				
 				switch (P2)
 				{
@@ -874,7 +874,7 @@ public class eapengine extends Applet
 			case INS_EAP_PACKETS :
 		         
 		        if ( ! UserPin.isValidated() && !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
      			len = apdu.setIncomingAndReceive(); 
 				len = Process_EAP(buffer,(short)len,apdu);
 				if (len <0) 
@@ -886,7 +886,7 @@ public class eapengine extends Applet
 					
 			case INS_GET_RSN_MASTER_KEY :
 				/* if ( ! UserPin.isValidated() && !OperatorPin.isValidated() )
-				ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+				ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
 				if (P3 == (byte)0)				   
 					len = Get_MasterKey(buffer,(short)P3);
 				else 
@@ -899,7 +899,7 @@ public class eapengine extends Applet
 			case INS_READ:	
 					  
 				if ( !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)OperatorPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | OperatorPin.getTriesRemaining()));
 				if (adrc <(short)0) 
 					adrc =(short) (NVR_Size+adrc);
 								
@@ -914,7 +914,7 @@ public class eapengine extends Applet
 				
 				len = apdu.setIncomingAndReceive(); 
 				if ( !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)OperatorPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | OperatorPin.getTriesRemaining()));
 				if (adrc <(short)0) 
 					adrc =(short) (NVR_Size+adrc);
 				if ((adrc <0) || (adrc >= (short)NVR_Size)) 
@@ -928,7 +928,7 @@ public class eapengine extends Applet
 			case INS_FETCH:
 					  
 				if ( ! UserPin.isValidated() && !OperatorPin.isValidated() )
-					ISOException.throwIt(((short)SW_PIN_VERIFICATION_REQUIRED | (short)UserPin.getTriesRemaining()));
+					ISOException.throwIt((short)(SW_PIN_VERIFICATION_REQUIRED | UserPin.getTriesRemaining()));
 				LongResponse(false,buffer,apdu);
 					return;
 			
@@ -963,7 +963,7 @@ public class eapengine extends Applet
 		if (Out_len < (short)256) len=Out_len;
 		else    len=(short)0;
 									   
-		ISOException.throwIt(((short)SW_FETCH | (short)((short)0xFF & len)));
+		ISOException.throwIt((short)((short)SW_FETCH | (short)((short)0xFF & len)));
   	}
    
 	protected eapengine(byte[] bArray,short bOffset,byte bLength)
