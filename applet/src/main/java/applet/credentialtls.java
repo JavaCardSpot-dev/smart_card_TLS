@@ -50,7 +50,7 @@
  
  
 /****************************************************************************************************************
- | UPDATE 2011 - Gilles Bernabé                                                                                 |
+ | UPDATE 2011 - Gilles Bernabe                                                                                 |
  |--------------------------------------------------------------------------------------------------------- ----|
  | - remove cypher suite TLS_RSA_WITH_RC4_128_SHA and implementation of TLS_RSA_WITH_AES_128_CBC_SHA            |
  | - implementation of the entire TLS Record protocol								|           
