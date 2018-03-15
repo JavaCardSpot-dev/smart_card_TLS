@@ -59,7 +59,7 @@
  | - minor changes: memory management, harden certificate checking, cleanups...                                 |
  ****************************************************************************************************************/
  
- 
+@SuppressWarnings("fallthrough")
 package applet;
 
 import javacard.framework.*;
