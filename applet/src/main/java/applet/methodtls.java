@@ -59,7 +59,7 @@
  | - minor changes: memory management, harden certificate checking, cleanups...                                 |
  ****************************************************************************************************************/
  
-@SuppressWarnings("fallthrough")
+
 package applet;
 
 import javacard.framework.*;
@@ -310,11 +310,12 @@ public class methodtls implements auth {
 	* <br>len: length of the message
 	* <br>returns the length of the Header
 	*/
+	@SuppressWarnings("fallthrough")
 	public static short MakeHanshakeHeader(byte [] HH, short offset,byte message,short len) 
 	{ 
 		HH [offset] = message;
 		HH [(short)(offset+1)] = (byte)0;
-	  
+	
 		switch (message)
 		{
 			case (byte)11: // certificate
@@ -341,7 +342,7 @@ public class methodtls implements auth {
 	public byte [] Get_Fct_Buffer(){ return Fct_Buffer;}
 	public short Get_Fct_Offset()  { return Fct_Offset;}
 	public short Get_Fct_Length()  { return Fct_Length;}
-	
+	@SuppressWarnings("fallthrough")
 	public void fct(APDU apdu, byte[] buffer,short len) throws ISOException,CryptoException
 	{
 		byte P1,P2,P3,mode=(byte)0;
@@ -373,7 +374,7 @@ public class methodtls implements auth {
 			 
 			return;
 		}
-		  
+		
 		switch (P1)
 		{ 
 			case FCT_TEST_DIGEST:
@@ -561,7 +562,7 @@ public class methodtls implements auth {
 	//==================================================================
 	// CLA INS P1 P2 P3 CODE ID LEN_MSB LEN_LSB TYPE FLAG [LENGTH] .....
 	//==================================================================
-	
+	@SuppressWarnings("fallthrough")
 	public short process_eap (byte[] in,short len) throws CryptoException 
 	{	
 		boolean process=true ;
@@ -636,6 +637,7 @@ public class methodtls implements auth {
 	
 		while(process)
 		{	process=false;
+			
 			switch (EAP_TLS_State)
 			{	
 				case S_CLIENT_HELLO_TX :
