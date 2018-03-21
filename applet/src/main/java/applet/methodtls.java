@@ -1049,7 +1049,7 @@ public class methodtls implements auth {
 					frag_ptr = heap_ptr;
 					return(EAP_TLS_Output(in,false,true));		
 			
-				case (byte)90 :
+				case (byte)90 ://This state is used when client resumes with previous session ID
 		    
 					// old_ptr => Server Hello
 					len1=heap_ptr ; 
@@ -1312,7 +1312,7 @@ public class methodtls implements auth {
 	* <br>returns: 0 if APDU reassembly is in progress, 6 if an EAP-TLS ACK
 	* <br>is generated, READY if EAP-TLS message is ready for processing.
 	*/
-	public short EAP_TLS_Input(byte[] in,short len,boolean first)
+	public short EAP_TLS_Input(byte[] in,short len,boolean first)//This pushes incoming complete TLS data from server on heap for further use
 	{  
 		if (first)  // first fragment of EAP message
 		{	EAPID = in[(short)6];
