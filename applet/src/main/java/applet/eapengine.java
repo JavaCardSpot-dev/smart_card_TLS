@@ -797,7 +797,7 @@ public class eapengine extends Applet
 				return;			
 		
 			case INS_VERIFY:   // retrieve the PIN data for validation.
-                
+                //Both operator PIN and User PIN are in clear hence can be snooped
 				apdu.setIncomingAndReceive();
 				if (P2 == (byte)0x01)
 				{	verify(OperatorPin,buffer);
