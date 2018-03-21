@@ -363,7 +363,7 @@ public class eapengine extends Applet
 							Index = (short)(3+Index+len);
 							break;
 		
-						case KEY_TYPE_PMK //PMK is saved At the start of NVR
+						case KEY_TYPE_PMK: //PMK is saved At the start of NVR
 							My_PMK_Key         = NVR;
 							My_PMK_Key_Length  =  (short)64;
 							My_PMK_Key_Offset  =  (short)(Index+3);
@@ -456,7 +456,7 @@ public class eapengine extends Applet
 	
 				switch (MyEAPType)
 				{
-					case EAP_TYPE_TLS//HERE CREDENTIALS related to a perticular identity are set for TLS 
+					case EAP_TYPE_TLS: //HERE CREDENTIALS related to a perticular identity are set for TLS 
 		 
 						TlsCredit.Cert_Length = MyCert_Length;
 						TlsCredit.Cert_Offset = MyCert_Offset;
