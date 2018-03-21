@@ -621,7 +621,8 @@ public class methodtls implements auth {
 			}
 			
 		else // Error
-		{	EAP_TLS_State = S_END;return(short)-1;}
+		{	EAP_TLS_State = S_END;return(short)-1;}//RESET function is not called when there is an error
+													//Untill the next EAP-start memory is not freed
 		}
 		
 		else 
@@ -666,7 +667,7 @@ public class methodtls implements auth {
 						}
 					}
 					
-					if (resume) 
+					if (resume) //To resume with previous session ID
 					{ 
 						EAP_TLS_State = (byte)90 ;
 						process=true; break;
@@ -703,10 +704,10 @@ public class methodtls implements auth {
 						return(short)-1;
 					}
 		   
-					EAP_TLS_State = (byte)50; 
+					EAP_TLS_State = (byte)50; //EAP statemachine next state set for server certificate verification
 					if (debug) return(short)0;
 					
-				case (byte)50 :
+				case (byte)50 ://EAP state for server certificate verification
 				
 					len1=old_ptr ;//=> Server Hello
 					len2=Util.makeShort(heap[(short)(len1+3)],heap[(short)(len1+4)]);
