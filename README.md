@@ -3,7 +3,10 @@
 SECOND SEMESTER [![Build Status](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS.svg?branch=master)](https://travis-ci.org/JavaCardSpot-dev/smart_card_TLS)
 
 Credits: This Project is forked from https://github.com/gilb/smart_card_TLS. This is part of semester II term project wherein any bugs or issues will be identified and will be patched. 
-Any improvement in the code as part of semester work is handle by under :Surendra Kumar Yadav, Sujeet Deshmukh, Nidhi Pokhriyal
+Any improvement in the code as part of semester work is handle by under:-
+1. Surendra Kumar Yadav
+2. Sujeet Deshmukh
+3. Nidhi Pokhriyal
 --------------
 Smart card TLS   
 --------------
