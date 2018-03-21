@@ -813,7 +813,8 @@ public class eapengine extends Applet
 				len= apdu.setIncomingAndReceive() ;
 				if (len != (short)16)
 				ISOException.throwIt(ISO7816.SW_WRONG_LENGTH); 	   
-				buffer[4]=(byte)8;
+				buffer[4]=(byte)8; //User PIN can never be changed due to this statement until full 8 byte of 
+								   //user PIN is sent
 					   
 				if (P2 == (byte)0x01)
 				{	verify(OperatorPin,buffer);
