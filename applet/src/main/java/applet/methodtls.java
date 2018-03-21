@@ -214,7 +214,7 @@ public class methodtls implements auth {
 	private short    numct, numct_server,numct_client;
 	
 	private byte[] pre_master_secret = new byte[48]; 
-	private byte[] master_secret     = new byte[80];
+	private byte[] master_secret     = new byte[80]; //Very important key but stored in clear and also used in Resume operation
 	private byte[] key_block         = new byte[120];
 	private byte[] finished          = new byte[80];
 	private byte[] hash              = new byte[36];
