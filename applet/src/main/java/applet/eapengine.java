@@ -327,7 +327,7 @@ public class eapengine extends Applet
 				
 				return(TmpAlias_Length);
 			}
-	
+	//The following steps are done for SET identity
 			Index = (short)(Index+1);  // => Number of Keys
 			nk = (short) NVR[Index];   // => Number of Keys
 			Index = (short)(Index+1);  // => Key_Type
@@ -350,7 +350,7 @@ public class eapengine extends Applet
 					len = Util.makeShort(NVR[(short)(Index+1)],NVR[(short)(Index+2)]);
 					//Index = (short)(Index+3);
 		
-					switch (NVR[Index])
+					switch (NVR[Index])//Key type is being checked here 
 					{
 						case KEY_TYPE_SYMETRIC:
 							// MyKey_Index  = (byte)i;
