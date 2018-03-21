@@ -171,6 +171,8 @@ public class eapengine extends Applet
 	private  static RandomData			rnd=null;
   
 	private static OwnerPIN UserPin=null;
+	//User PIN and Operator PIN are 8 bytes but only 4 bytes of User pin is used and remaining 
+	//4 bytes are hardcoded with 0xFF
 	private static final  byte[]   MyPin = {(byte)0x30,(byte)0x30,(byte)0x30,(byte)0x30,
 											(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0xFF};
     
