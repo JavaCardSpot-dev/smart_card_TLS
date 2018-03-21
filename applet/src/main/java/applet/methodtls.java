@@ -473,7 +473,7 @@ public class methodtls implements auth {
 	}
 	
 	public void  reset() 
-	{   
+	{   //KEY BLOCK is not erased during RESET. 
 		EAP_TLS_State = S_END;
 		heap_ptr= frag_ptr = heap_offset;
 		in_frag=out_frag=false;
