@@ -581,11 +581,11 @@ public class methodtls implements auth {
 	 	 	/*if (cOP)
 			{ //cOP=true;*/
 			Util.arrayCopyNonAtomic(in,(short) 0 ,ClientHello,(short)11,(short)4);
-		 	rnd.generateData(ClientHello,(short)15,(short)28);
+		 	rnd.generateData(ClientHello,(short)15,(short)28);//28 bytes of random data is generated for Client Hello
 			Client_Hello_Length= (byte)ClientHello.length ;
 			Push(ClientHello,(short)0,(short)Client_Hello_Length);
 					
-			if (enable_resume && (session_id_length != (byte)0)) 
+			if (enable_resume && (session_id_length != (byte)0)) //Enable_resume = false ..used for reconnection with previous session ID
 			{ 
 				heap[(short)(heap_offset+43)] = session_id_length;
 				heap_ptr = (short)(heap_offset+44);
