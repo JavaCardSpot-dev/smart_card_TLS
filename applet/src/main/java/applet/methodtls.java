@@ -489,6 +489,8 @@ public class methodtls implements auth {
                 short fill2 = Util.arrayFillNonAtomic(record_buf,(short)0,(short)record_buf.length, (byte) 0x00);
 		//Wiping pre_master_secret
                 short fill3 = Util.arrayFillNonAtomic(pre_master_secret,(short)0,(short)pre_master_secret.length , (byte) 0x00);
+		//Wiping master_secret
+                 short fill4 = Util.arrayFillNonAtomic(master_secret,(short)0,(short) master_secret.length, (byte) 0x00);
 		digest=sha; // digest default value for the RECORD Layer
 		numct=(short)0;
 		numct_server=(short)0;
