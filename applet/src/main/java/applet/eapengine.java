@@ -275,10 +275,10 @@ public class eapengine extends Applet
 	*/
 	public void verify(OwnerPIN pin,byte [] buffer) throws ISOException
 	{
-		short i,x;
-		x = Util.makeShort((byte)0,buffer[4]);
-		for(i=x;i<(short)8;i=(short)(i+1))
-			buffer[(short)(5+i)]=(byte)0xFF;
+		//short i,x;//FIX 1 - USER PIN AND OPERATOR PIN NEEDS TO BE 8 byte always
+		//x = Util.makeShort((byte)0,buffer[4]);//Fixes issues in change pin too
+		//for(i=x;i<(short)8;i=(short)(i+1))
+		//	buffer[(short)(5+i)]=(byte)0xFF;
 	    if ( pin.check(buffer, (short)5,(byte)8) == false )
 			ISOException.throwIt((short)(SW_VERIFICATION_FAILED | pin.getTriesRemaining()));
 	}
