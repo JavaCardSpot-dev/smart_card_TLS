@@ -678,7 +678,7 @@ public class eapengine extends Applet
 					default: // TLS ... NAK 
 						if (EAPAuth != null)
 						{ 
-							try {length = EAPAuth.process_eap(buffer,(short)(length+5));}
+							try {length = EAPAuth.process_eap(buffer,(short)(length+5));}//apdu buffer+ p3+5
 							catch (CryptoException e){length=(short)-1;}
 			
 							if (EAPAuth.IsLongResponse())
