@@ -216,8 +216,9 @@ public class methodtls implements auth {
 	//private byte[] pre_master_secret = new byte[48];
 	private byte[] pre_master_secret = JCSystem.makeTransientByteArray((short)48, JCSystem.CLEAR_ON_RESET);//FIX- FROM EPROM ITS CHANNGED TO RAM ARRAY WHICH WILL BE CLEARED ON RESET.
 	//private byte[] master_secret     = new byte[80]; //Very important key but stored in clear and also used in Resume operation. Master key can be erased and Pre-master can be stored in encrypted by client's private key for subsequent use during resume operation
-	private byte[] master_secret     = JCSystem.makeTransientByteArray((short)80, JCSystem.CLEAR_ON_RESET);//Master secret is now stored in transient array.
-	private byte[] key_block         = new byte[120];
+	private byte[] master_secret     = JCSystem.makeTransientByteArray((short)80, JCSystem.CLEAR_ON_RESET);//Master secret is now stored in transient array and cleared on reset.
+	//private byte[] key_block         = new byte[120];
+	private byte[] key_block         = JCSystem.makeTransientByteArray((short)120, JCSystem.CLEAR_ON_RESET);//keyblock is stored in RAM array and cleared on reset
 	private byte[] finished          = new byte[80];
 	private byte[] hash              = new byte[36];
  	 
