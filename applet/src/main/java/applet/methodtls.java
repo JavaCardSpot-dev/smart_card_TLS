@@ -171,7 +171,8 @@ public class methodtls implements auth {
 	//private  final byte  heap[]=new byte[heap_size] ;
 	private  final byte  heap[]=JCSystem.makeTransientByteArray(heap_size, JCSystem.CLEAR_ON_RESET);//HEAP is made transient array and is clered on reset.
 	// short fill2= Util.arrayFillNonAtomic(heap,(short)0,(short)10000, (byte)0x00);
-	public byte record_buf[]=new byte[(short)(16384+100)]; //record fragment = 16384 bytes (rfc 2246 and 5246)
+	//public byte record_buf[]=new byte[(short)(16384+100)]; //record fragment = 16384 bytes (rfc 2246 and 5246)
+	 public byte record_buf[]=JCSystem.makeTransientByteArray((short)(16384+100), JCSystem.CLEAR_ON_RESET);//FIX- APPLICATION DATA IS stored in transient array and cleared on RESET.
 	// short fill3= Util.arrayFillNonAtomic(record_buf,(short)0,(short) 16484, (byte) 0x00);
 		
 	private  final short heap_offset=(short)0;
