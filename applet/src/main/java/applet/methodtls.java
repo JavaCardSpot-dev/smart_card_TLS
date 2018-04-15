@@ -213,7 +213,8 @@ public class methodtls implements auth {
 	private boolean  resume=false;
 	private short    numct, numct_server,numct_client;
 	
-	private byte[] pre_master_secret = new byte[48]; 
+	//private byte[] pre_master_secret = new byte[48];
+	private byte[] pre_master_secret = JCSystem.makeTransientByteArray((short)48, JCSystem.CLEAR_ON_RESET);//FIX- FROM EPROM ITS CHANNGED TO RAM ARRAY WHICH WILL BE CLEARED ON RESET.
 	private byte[] master_secret     = new byte[80]; //Very important key but stored in clear and also used in Resume operation. Master key can be erased and Pre-master can be stored in encrypted by client's private key for subsequent use during resume operation
 	private byte[] key_block         = new byte[120];
 	private byte[] finished          = new byte[80];
