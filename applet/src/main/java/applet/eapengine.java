@@ -341,18 +341,18 @@ public class eapengine extends Applet
 			else if (Util.arrayCompare(buffer,offset,NVR,TmpAlias_Offset,TmpAlias_Length)!=0)
 			{	for(i=0;i<nk;i=(short)(i+1)) // Goto NextRecord
 					Index = (short)(Index + 3 + Util.makeShort(NVR[(short)(Index+1)],NVR[(short)(Index+2)]));
-			}
+			}//come out of the loop for checking other recrds*************N
 			else 
 			{ 
 				EAPAuth = null;
 				MyEAPType = NVR[(short)(Index-2)];
-	  
+	  			//NVR[0]**************N///Identity type	
 				for(i=0;i<nk;i=(short)(i+1))
 				{	//MyKey_Type = NVR[Index];
 					len = Util.makeShort(NVR[(short)(Index+1)],NVR[(short)(Index+2)]);
 					//Index = (short)(Index+3);
 		
-					switch (NVR[Index])//Key type is being checked here 
+					switch (NVR[Index])////NVR[2]****Key type is being checked here 
 					{
 						case KEY_TYPE_SYMETRIC:
 							// MyKey_Index  = (byte)i;
@@ -366,7 +366,7 @@ public class eapengine extends Applet
 							break;
 		
 						case KEY_TYPE_PMK: //PMK is saved At the start of NVR
-							My_PMK_Key         = NVR;
+							My_PMK_Key         = NVR; //AT the start of NVR is PMK*********N
 							My_PMK_Key_Length  =  (short)64;
 							My_PMK_Key_Offset  =  (short)(Index+3);
 			  
@@ -377,7 +377,7 @@ public class eapengine extends Applet
 				
 							Index = (short)(3+Index); 
 							
-							len = Util.makeShort(NVR[Index],NVR[(short)(Index+1)]);
+							len = Util.makeShort(NVR[Index],NVR[(short)(Index+1)]); //NVR[5]+NVR[6]****N
 							
 							if (len == (byte)0x40)       rsa_PrivateCrtKey = rsa_PrivateCrtKey_1024;
 							else if (len == (byte)80)    rsa_PrivateCrtKey = rsa_PrivateCrtKey_2048;
