@@ -482,6 +482,8 @@ public class methodtls implements auth {
 		EAP_TLS_State = S_END;
 		heap_ptr= frag_ptr = heap_offset;
 		in_frag=out_frag=false;
+		 //FIX- Wiping Heap Data
+			   short fill1 = Util.arrayFillNonAtomic(heap,(short)0,heap_size, (byte)0x00);
 		resume=false;
 		digest=sha; // digest default value for the RECORD Layer
 		numct=(short)0;
