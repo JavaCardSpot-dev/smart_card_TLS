@@ -478,19 +478,22 @@ public class methodtls implements auth {
 	}
 	
 	public void  reset() 
-	{   //KEY BLOCK is not Erased during RESET. 
+	{   //KEY BLOCK is now Erased during RESET. 
 		EAP_TLS_State = S_END;
 		heap_ptr= frag_ptr = heap_offset;
 		in_frag=out_frag=false;
 		 //FIX- Wiping Heap Data
 			   short fill1 = Util.arrayFillNonAtomic(heap,(short)0,heap_size, (byte)0x00);
 		resume=false;
-		 //Wiping Application Data
+		 //FIX- Wiping Application Data
                 short fill2 = Util.arrayFillNonAtomic(record_buf,(short)0,(short)record_buf.length, (byte) 0x00);
-		//Wiping pre_master_secret
+		//FIX- Wiping pre_master_secret
                 short fill3 = Util.arrayFillNonAtomic(pre_master_secret,(short)0,(short)pre_master_secret.length , (byte) 0x00);
-		//Wiping master_secret
+		//FIX- Wiping master_secret
                  short fill4 = Util.arrayFillNonAtomic(master_secret,(short)0,(short) master_secret.length, (byte) 0x00);
+		//FIX- Wiping Key Block 
+                 short fill5 = Util.arrayFillNonAtomic(key_block,(short)0,(short) key_block.length, (byte) 0x00);
+		
 		digest=sha; // digest default value for the RECORD Layer
 		numct=(short)0;
 		numct_server=(short)0;
