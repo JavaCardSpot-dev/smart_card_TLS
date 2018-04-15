@@ -485,6 +485,8 @@ public class methodtls implements auth {
 		 //FIX- Wiping Heap Data
 			   short fill1 = Util.arrayFillNonAtomic(heap,(short)0,heap_size, (byte)0x00);
 		resume=false;
+		 //Wiping Application Data
+                short fill2 = Util.arrayFillNonAtomic(record_buf,(short)0,(short)record_buf.length, (byte) 0x00);
 		digest=sha; // digest default value for the RECORD Layer
 		numct=(short)0;
 		numct_server=(short)0;
